@@ -4,15 +4,17 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
+    min-height: 100vh; 
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 *{
     box-sizing: border-box;
 }
 .container{
+    width: 95vw; /* займає майже всю ширину */
     max-width: 420px;
-    width: 100%;
-    height: max-content;
+    height: 95vh; /* 🔹 тепер калькулятор підлаштовується під висоту екрану */
+    
     background-color: black;
     margin: auto;
     padding: 10px 10px 20px 10px;
@@ -37,27 +39,33 @@ body{
 }
 .flex{
     display: flex;
-    justify-content: flex-end
-}
-.btn{
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background-color: grey;
-    color: #fff;
-    font-size: 40px;
-
-    display: flex;
     justify-content: center;
-    align-items:center ;
-
-    
-    cursor: pointer;
+    gap: 8px;
+    margin-bottom: 8px;
 }
-.btn:active{
-    background-color: rgb(192, 192, 192);
-    transition: 0.5s ease-out;
+.btn {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background-color: grey;
+  color: #fff;
+  font-size: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+  /* 🔹 перехід задаємо тут */
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn:active {
+  background-color: rgb(192, 192, 192);
+  transform: scale(0.95); /* додає приємний ефект натискання */
 }
 .orange{
     background-color: orange;
+}
+[data-num]{
+    background-color: #353333;
 }
