@@ -90,7 +90,7 @@ function calculate(){
   earlyOut.innerHTML = formatted;
 
   // підготовка для наступного обчислення
-  num1 = ""
+  num1 = String(result).replace(".", ",");
   num2 = "";
   act = "";
 }
@@ -134,4 +134,5 @@ function calculatePercent() {
     num1 = String(parseFloat((n1 / 100).toFixed(4))).replace(".", ",");
     out.innerHTML = num1;
   }
+
 }
