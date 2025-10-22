@@ -139,3 +139,14 @@ document.querySelectorAll('.btn').forEach(btn => {
     setTimeout(() => btn.classList.remove('active'), 100);
   });
 });
+
+// створюємо об'єкт звуку
+const clickSound = new Audio("button-click.mp3"); // або .wav, як тобі зручніше
+
+// додаємо слухач на всі кнопки
+document.querySelectorAll('.btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    clickSound.currentTime = 0; // щоб звук грав навіть при швидких кліках
+    clickSound.play();
+  });
+});
