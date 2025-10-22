@@ -130,3 +130,12 @@ function clearLast(){
     out.innerHTML = num1;
   }
 }
+// для кліку
+document.querySelectorAll('.btn').forEach(btn => {
+  btn.addEventListener('touchstart', () => {
+    btn.classList.add('active');
+  });
+  btn.addEventListener('touchend', () => {
+    setTimeout(() => btn.classList.remove('active'), 100);
+  });
+});
