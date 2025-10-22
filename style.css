@@ -54,14 +54,20 @@ body{
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent; /* прибирає синю рамку */
+  touch-action: manipulation; /* каже браузеру що це клікабельний елемент */
 
   /* 🔹 перехід задаємо тут */
   transition: background-color 0.2s ease, transform 0.1s ease;
 }
-
 .btn:active {
   background-color: rgb(192, 192, 192);
-  transform: scale(0.95); /* додає приємний ефект натискання */
+  transform: scale(0.95); 
+}
+.btn.active {
+  background-color: rgb(192, 192, 192);
+  transform: scale(0.95);
+  transition: background-color 0.2s ease, transform 0.1s ease;
 }
 .orange{
     background-color: orange;
@@ -69,3 +75,4 @@ body{
 [data-num]{
     background-color: #353333;
 }
+
