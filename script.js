@@ -52,17 +52,23 @@ function pressNum(num){
     } else if (num !== ",") {
       num2 += num;
     }
-    out.innerHTML = num1 + " " + act + " " + num2;
+    out.innerHTML = num1 + "" + act + "" + num2;
   }   
 }
 function pressAction(a){ 
-    // якщо користувач натиснув "%", одразу обробляємо
-    if (a === "%") {
-        calculatePercent();
-        return;
-    } 
-     act = a 
-     out.innerHTML += act
+  // якщо ще не введено перше число — ігноруємо дію
+  if (num1 === "") return;
+
+  // якщо дія вже є, просто замінимо її на нову
+  if (act !== "" && num2 === "") {
+    act = a;
+    out.innerHTML = num1 + "" + act; // оновлюємо відображення
+    return;
+  }
+
+  // стандартна поведінка — додаємо дію вперше
+  act = a;
+  out.innerHTML = num1 + "" + act;
 }
 
 function calculate(){  
@@ -70,8 +76,17 @@ function calculate(){
   // замінюємо кому на крапку, бо JS розуміє лише крапку для десяткових чисел
   let n1 = parseFloat(num1.replace(",", "."));
   let n2 = parseFloat(num2.replace(",", "."));
-       
-    if(act === "+"){
+
+  if (act === "%") {
+    if (n2 === 0 || num2 === "") {
+      // якщо немає другого числа, просто обчислюємо відсоток від 1
+      result = n1 / 100;
+    } else {
+      // якщо є друге число — рахуємо n1% від n2
+      result = (n1 * n2) / 100;
+    }
+  }
+     if(act === "+"){
        result = n1 + n2 
     }else if(act === "-"){
        result = n1 - n2 
@@ -81,8 +96,9 @@ function calculate(){
        result = n1 / n2 
     }
 
-  //  Округлення до 4 знаків
-  if (!Number.isInteger(result)) result = parseFloat(result.toFixed(4));
+  // округлення результату
+    result = parseFloat(result.toFixed(4));
+  
 
  //  замінюємо крапку на кому для виводу
   let formatted = String(result).replace(".", ",");
@@ -108,31 +124,9 @@ function clearLast(){
     out.innerHTML = num1 || "0";
   } else if (num2 !== "") {
     num2 = num2.slice(0, -1);
-    out.innerHTML = num1 + " " + act + " " + num2;
+    out.innerHTML = num1 + "" + act + "" + num2;
   } else {
     act = "";
     out.innerHTML = num1;
   }
-}
-function calculatePercent() {
-  if (num1 && act && num2) {
-    let n1 = parseFloat(num1.replace(",", "."));
-    let n2 = parseFloat(num2.replace(",", "."));
-
-    // 🔹 Логіка як у калькуляторі iPhone:
-    if (act === "+" || act === "-") {
-      n2 = (n1 * n2) / 100;  // % від першого числа
-    } else if (act === "*" || act === "/") {
-      n2 = n2 / 100;         // просто частка
-    }
-
-    num2 = String(parseFloat(n2.toFixed(4))).replace(".", ",");
-    out.innerHTML = num1 + " " + act + " " + num2;
-  } else if (num1 && !num2 && !act) {
-    // якщо просто натиснули % без дії
-    let n1 = parseFloat(num1.replace(",", "."));
-    num1 = String(parseFloat((n1 / 100).toFixed(4))).replace(".", ",");
-    out.innerHTML = num1;
-  }
-
 }
